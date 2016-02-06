@@ -69,7 +69,15 @@ class singlylist{
             }
         }
     }
-    void display(int position);
+    void display(int position){
+        int iter=0;LinkedList *lIter=this->head;
+        while (iter<position) {
+            lIter=lIter->nextNode;
+            iter++;
+        }
+        cout<<lIter->data<<endl;
+        lIter=NULL;
+    }
     void display();
 };
 
@@ -79,9 +87,6 @@ int main(int argc, const char * argv[]) {
     objSinglyList.insert("World", 0);
     objSinglyList.insert("Hello", 0);
     objSinglyList.insert("Sriram", objSinglyList.size());
-    
-    singlylist objSinglyList1;
-    objSinglyList1.insert("Hello", 0);
-    std::cout << objSinglyList1.size()<<endl;
+    objSinglyList.display(0);
     return 0;
 }
