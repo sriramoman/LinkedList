@@ -70,6 +70,10 @@ class singlylist{
         }
     }
     void display(int position){
+        if (position>count) {
+            cout<<"error: Out of bounds"<<endl;
+            return;
+        }
         int iter=0;LinkedList *lIter=this->head;
         while (iter<position) {
             lIter=lIter->nextNode;
@@ -78,7 +82,11 @@ class singlylist{
         cout<<lIter->data<<endl;
         lIter=NULL;
     }
-    void display();
+    void display(){
+        for (LinkedList *lIter=this->head; lIter!=NULL; lIter=lIter->nextNode) {
+            cout<<lIter->data<<(lIter->nextNode!=NULL?",":"\n");
+        }
+    }
 };
 
 int main(int argc, const char * argv[]) {
@@ -88,5 +96,9 @@ int main(int argc, const char * argv[]) {
     objSinglyList.insert("Hello", 0);
     objSinglyList.insert("Sriram", objSinglyList.size());
     objSinglyList.display(0);
+    objSinglyList.display(1);
+    objSinglyList.display(2);
+    objSinglyList.display(3);
+    objSinglyList.display();
     return 0;
 }
