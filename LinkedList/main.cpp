@@ -14,6 +14,12 @@ class LinkedListModel{
 public:
     LinkedListModel* nextNode;
     string data;
+//TODO: Make this Abstract class:
+//    virtual int size()=0;
+//    void insert(string data,int position);
+//    void insert(string data);
+//    void display(int position);
+//    void display();
 };
 
 class DoublyLinkedListModel:LinkedListModel{
@@ -96,6 +102,9 @@ class singlylist:protected LinkedListModel{
             cout<<lIter->data<<(lIter->nextNode!=NULL?",":"\n");
         }
     }
+};
+
+class doublylist:protected DoublyLinkedListModel{
 };
 
 int main(int argc, const char * argv[]) {
