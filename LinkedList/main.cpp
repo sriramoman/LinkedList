@@ -10,15 +10,21 @@
 #include <stdlib.h>
 using namespace::std;
 
-struct LinkedList{
-    LinkedList* nextNode;
+class LinkedListModel{
+public:
+    LinkedListModel* nextNode;
     string data;
 };
 
-class singlylist{
+class DoublyLinkedListModel:LinkedListModel{
+public:
+    LinkedListModel* prevNode;
+};
+
+class singlylist:protected LinkedListModel{
     private:
-    LinkedList* head;
-    LinkedList* tail;
+    LinkedListModel* head;
+    LinkedListModel* tail;
     int count;
     public:
     singlylist(){
@@ -30,7 +36,7 @@ class singlylist{
     }
     void insert(string data,int position){
         if (head==NULL && position==0) {
-            LinkedList* newNode = (LinkedList*)malloc(sizeof(LinkedList));
+            LinkedListModel* newNode = (LinkedListModel*)malloc(sizeof(LinkedListModel));
             newNode->data=data;
             head=tail=newNode;
             tail->nextNode=NULL;
@@ -43,7 +49,7 @@ class singlylist{
         }
         else if (position==count){
             //Save time in iterating
-            LinkedList* newNode = (LinkedList*)malloc(sizeof(LinkedList));
+            LinkedListModel* newNode = (LinkedListModel*)malloc(sizeof(LinkedListModel));
             newNode->data=data;
             tail->nextNode=newNode;
             tail=newNode;
@@ -51,7 +57,7 @@ class singlylist{
             ++count;
         }
         else{
-            LinkedList* newNode = (LinkedList*)malloc(sizeof(LinkedList));
+            LinkedListModel* newNode = (LinkedListModel*)malloc(sizeof(LinkedListModel));
             newNode->data=data;
             if (position==0) {
                 newNode->nextNode=head;
@@ -59,22 +65,25 @@ class singlylist{
                 return;
             }
             else {
-                LinkedList* iter=head;
+                LinkedListModel* iter=head;
                 for (int i=0; i<position; i++) {
                     iter=iter->nextNode;
                 }
-                LinkedList* tmp=iter;
+                LinkedListModel* tmp=iter;
                 iter->nextNode=newNode;
                 newNode->nextNode=tmp->nextNode;
             }
         }
+    }
+    void insert(string data){
+        this->insert(data, 0);
     }
     void display(int position){
         if (position>count) {
             cout<<"error: Out of bounds"<<endl;
             return;
         }
-        int iter=0;LinkedList *lIter=this->head;
+        int iter=0;LinkedListModel *lIter=this->head;
         while (iter<position) {
             lIter=lIter->nextNode;
             iter++;
@@ -83,7 +92,7 @@ class singlylist{
         lIter=NULL;
     }
     void display(){
-        for (LinkedList *lIter=this->head; lIter!=NULL; lIter=lIter->nextNode) {
+        for (LinkedListModel *lIter=this->head; lIter!=NULL; lIter=lIter->nextNode) {
             cout<<lIter->data<<(lIter->nextNode!=NULL?",":"\n");
         }
     }
@@ -92,8 +101,8 @@ class singlylist{
 int main(int argc, const char * argv[]) {
     // insert code here...
     singlylist objSinglyList;
-    objSinglyList.insert("World", 0);
-    objSinglyList.insert("Hello", 0);
+    objSinglyList.insert("World");
+    objSinglyList.insert("Hello");
     objSinglyList.insert("Sriram", objSinglyList.size());
     objSinglyList.display(0);
     objSinglyList.display(1);
